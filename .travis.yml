@@ -7,3 +7,6 @@ android:
     - build-tools-23.0.2
     - android-23
     - extra-android-m2repository
+
+script:
+   - gradle build check
