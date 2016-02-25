@@ -1,6 +1,7 @@
-package xyz.javalab.androidlab;
+package xyz.javalab.androidlab.activities;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +9,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import xyz.javalab.androidlab.R;
+import xyz.javalab.androidlab.model.Question;
+
 public class QuizActivity extends AppCompatActivity {
+
+    private static final String KEY_CURRENT_INDEX = "currentIndex";
 
     private Button btnTrue;
     private Button btnFalse;
@@ -30,8 +36,18 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        if (savedInstanceState != null) {
+            currentIndex = savedInstanceState.getInt(KEY_CURRENT_INDEX, 0);
+        }
+
         setUpWidgets();
         updateQuestion();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_CURRENT_INDEX, currentIndex);
     }
 
     private void setUpWidgets() {

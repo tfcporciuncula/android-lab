@@ -1,4 +1,4 @@
-package xyz.javalab.androidlab;
+package xyz.javalab.androidlab.model;
 
 public class Question {
 
