@@ -1,13 +1,17 @@
 package xyz.javalab.androidlab.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ public class CheatActivity extends AppCompatActivity {
     private boolean cheated = false;
 
     private TextView txtAnswer;
+    private TextView txtApiLevel;
     private Button btnShowAnswer;
 
     @Override
@@ -38,8 +43,15 @@ public class CheatActivity extends AppCompatActivity {
             if (cheated) {
                 setResult(RESULT_OK);
                 showAnswer();
+                hideButton();
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_CHEATED, cheated);
     }
 
     private void setUpWidgets() {
@@ -51,8 +63,11 @@ public class CheatActivity extends AppCompatActivity {
                 cheated = true;
                 setResult(RESULT_OK);
                 showAnswer();
+                hideButton();
             }
         });
+        txtApiLevel = (TextView) findViewById(R.id.text_api_level);
+        txtApiLevel.setText("API level " + Build.VERSION.SDK_INT);
     }
 
     private void showAnswer() {
@@ -63,10 +78,25 @@ public class CheatActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_CHEATED, cheated);
+    private void hideButton() {
+        if (!cheated && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int cx = btnShowAnswer.getWidth() / 2;
+            int cy = btnShowAnswer.getHeight() / 2;
+            float radius = btnShowAnswer.getWidth();
+            Animator anim = ViewAnimationUtils.createCircularReveal(btnShowAnswer, cx, cy, radius, 0);
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    txtAnswer.setVisibility(View.VISIBLE);
+                    btnShowAnswer.setVisibility(View.INVISIBLE);
+                }
+            });
+            anim.start();
+        } else {
+            txtAnswer.setVisibility(View.VISIBLE);
+            btnShowAnswer.setVisibility(View.INVISIBLE);
+        }
     }
 
     public static Intent newIntent(Context context, boolean isAnswerTrue) {
