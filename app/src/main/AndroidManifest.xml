@@ -9,22 +9,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.QuizActivity"
+            android:name=".geoquiz.activities.QuizActivity"
             android:label="@string/title_activity_quiz"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LifecycleLoggerActivity"
+            android:name=".geoquiz.activities.LifecycleLoggerActivity"
             android:label="@string/title_activity_lifecycle_logger"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activities.CheatActivity"
+            android:name=".geoquiz.activities.CheatActivity"
             android:label="@string/title_activity_cheat"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".criminalintent.activities.CrimeActivity"
+            android:label="@string/title_activity_crime"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
