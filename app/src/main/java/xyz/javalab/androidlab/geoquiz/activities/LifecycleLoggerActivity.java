@@ -4,17 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import xyz.javalab.androidlab.R;
-
 public class LifecycleLoggerActivity extends AppCompatActivity {
 
-    private static final String TAG = "LifecycleLoggerActivity";
+    private static final String TAG = LifecycleLoggerActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate() called");
-        setContentView(R.layout.activity_lifecycle_logger);
     }
 
     @Override

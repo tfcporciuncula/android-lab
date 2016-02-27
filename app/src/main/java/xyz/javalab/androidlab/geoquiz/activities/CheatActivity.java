@@ -6,10 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.Button;
@@ -25,9 +22,8 @@ public class CheatActivity extends AppCompatActivity {
     private boolean isAnswerTrue;
     private boolean cheated = false;
 
-    private TextView txtAnswer;
-    private TextView txtApiLevel;
-    private Button btnShowAnswer;
+    private TextView answerText;
+    private Button showAnswerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +51,9 @@ public class CheatActivity extends AppCompatActivity {
     }
 
     private void setUpWidgets() {
-        txtAnswer = (TextView) findViewById(R.id.text_answer);
-        btnShowAnswer = (Button) findViewById(R.id.button_show_answer);
-        btnShowAnswer.setOnClickListener(new View.OnClickListener() {
+        answerText = (TextView) findViewById(R.id.answer_text);
+        showAnswerButton = (Button) findViewById(R.id.show_answer_button);
+        showAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cheated = true;
@@ -66,36 +62,36 @@ public class CheatActivity extends AppCompatActivity {
                 hideButton();
             }
         });
-        txtApiLevel = (TextView) findViewById(R.id.text_api_level);
-        txtApiLevel.setText("API level " + Build.VERSION.SDK_INT);
+        TextView apiLevelText = (TextView) findViewById(R.id.api_level_text);
+        apiLevelText.setText(R.string.api_level + Build.VERSION.SDK_INT);
     }
 
     private void showAnswer() {
         if (isAnswerTrue) {
-            txtAnswer.setText(R.string.true_button);
+            answerText.setText(R.string.true_button);
         } else {
-            txtAnswer.setText(R.string.false_button);
+            answerText.setText(R.string.false_button);
         }
     }
 
     private void hideButton() {
         if (!cheated && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int cx = btnShowAnswer.getWidth() / 2;
-            int cy = btnShowAnswer.getHeight() / 2;
-            float radius = btnShowAnswer.getWidth();
-            Animator anim = ViewAnimationUtils.createCircularReveal(btnShowAnswer, cx, cy, radius, 0);
+            int cx = showAnswerButton.getWidth() / 2;
+            int cy = showAnswerButton.getHeight() / 2;
+            float radius = showAnswerButton.getWidth();
+            Animator anim = ViewAnimationUtils.createCircularReveal(showAnswerButton, cx, cy, radius, 0);
             anim.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    txtAnswer.setVisibility(View.VISIBLE);
-                    btnShowAnswer.setVisibility(View.INVISIBLE);
+                    answerText.setVisibility(View.VISIBLE);
+                    showAnswerButton.setVisibility(View.INVISIBLE);
                 }
             });
             anim.start();
         } else {
-            txtAnswer.setVisibility(View.VISIBLE);
-            btnShowAnswer.setVisibility(View.INVISIBLE);
+            answerText.setVisibility(View.VISIBLE);
+            showAnswerButton.setVisibility(View.INVISIBLE);
         }
     }
 

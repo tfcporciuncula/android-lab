@@ -11,11 +11,6 @@ public class Crime {
         id = UUID.randomUUID();
     }
 
-    public Crime(String title) {
-        this();
-        this.title = title;
-    }
-
     public UUID getId() {
         return id;
     }

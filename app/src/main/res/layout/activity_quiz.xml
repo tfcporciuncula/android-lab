@@ -6,7 +6,7 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/text_question"
+        android:id="@+id/question_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"/>
@@ -17,13 +17,13 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/button_true"
+            android:id="@+id/true_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/true_button"/>
 
         <Button
-            android:id="@+id/button_false"
+            android:id="@+id/false_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/false_button"/>
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_cheat"
+        android:id="@+id/cheat_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cheat_button"/>
@@ -41,14 +41,14 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/button_previous"
+            android:id="@+id/previous_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow_left"
             android:contentDescription="@string/previous_button"/>
 
         <ImageButton
-            android:id="@+id/button_next"
+            android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow_right"

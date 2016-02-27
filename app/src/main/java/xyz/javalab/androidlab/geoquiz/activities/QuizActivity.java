@@ -18,12 +18,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_IS_CHEATER = "isCheater";
     private static final int REQUEST_CODE_CHEAT = 0;
 
-    private Button btnTrue;
-    private Button btnFalse;
-    private Button btnCheat;
-    private ImageButton btnNext;
-    private ImageButton btnPrevious;
-    private TextView txtQuestion;
+    private TextView questionText;
 
     private int currentIndex = 0;
     private Question[] questions = {
@@ -65,47 +60,47 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void setUpWidgets() {
-        txtQuestion = (TextView) findViewById(R.id.text_question);
-        txtQuestion.setOnClickListener(new View.OnClickListener() {
+        questionText = (TextView) findViewById(R.id.question_text);
+        questionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showNextQuestion();
             }
         });
 
-        btnTrue = (Button) findViewById(R.id.button_true);
-        btnTrue.setOnClickListener(new View.OnClickListener() {
+        Button trueButton = (Button) findViewById(R.id.true_button);
+        trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
             }
         });
 
-        btnFalse = (Button) findViewById(R.id.button_false);
-        btnFalse.setOnClickListener(new View.OnClickListener() {
+        Button falseButton = (Button) findViewById(R.id.false_button);
+        falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(false);
             }
         });
 
-        btnNext = (ImageButton) findViewById(R.id.button_next);
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        ImageButton nextButton = (ImageButton) findViewById(R.id.next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showNextQuestion();
             }
         });
-        btnPrevious = (ImageButton) findViewById(R.id.button_previous);
-        btnPrevious.setOnClickListener(new View.OnClickListener() {
+        ImageButton previousButton = (ImageButton) findViewById(R.id.previous_button);
+        previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPreviousQuestion();
             }
         });
 
-        btnCheat = (Button) findViewById(R.id.button_cheat);
-        btnCheat.setOnClickListener(new View.OnClickListener() {
+        Button cheatButton = (Button) findViewById(R.id.cheat_button);
+        cheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = CheatActivity.newIntent(QuizActivity.this, questions[currentIndex].isAnswerTrue());
@@ -115,7 +110,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void updateQuestion() {
-        txtQuestion.setText(questions[currentIndex].getTextId());
+        questionText.setText(questions[currentIndex].getTextId());
     }
 
     private void showNextQuestion() {
