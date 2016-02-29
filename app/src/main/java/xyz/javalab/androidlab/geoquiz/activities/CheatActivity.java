@@ -17,7 +17,7 @@ import xyz.javalab.androidlab.R;
 public class CheatActivity extends AppCompatActivity {
 
     private static final String KEY_CHEATED = "cheated";
-    private static final String EXTRA_IS_ANSWER_TRUE = "xyz.javalab.androidlab.activities.question.is_anwser_true";
+    private static final String EXTRA_IS_ANSWER_TRUE = "xyz.javalab.androidlab.geoquiz.is_anwser_true";
 
     private boolean isAnswerTrue;
     private boolean cheated = false;

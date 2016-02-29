@@ -18,6 +18,7 @@ import java.util.List;
 
 import xyz.javalab.androidlab.R;
 import xyz.javalab.androidlab.criminalintent.activities.CrimeActivity;
+import xyz.javalab.androidlab.criminalintent.activities.CrimePagerActivity;
 import xyz.javalab.androidlab.criminalintent.model.Crime;
 import xyz.javalab.androidlab.criminalintent.model.CrimeLab;
 
@@ -77,7 +78,7 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(CrimeActivity.newIntent(getActivity(), crime.getId()));
+                    startActivity(CrimePagerActivity.newIntent(getActivity(), crime.getId()));
                 }
             });
 
