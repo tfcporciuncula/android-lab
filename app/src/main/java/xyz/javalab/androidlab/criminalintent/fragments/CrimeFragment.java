@@ -2,8 +2,8 @@ package xyz.javalab.androidlab.criminalintent.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -15,16 +15,19 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.Date;
 import java.util.UUID;
 
 import xyz.javalab.androidlab.R;
-import xyz.javalab.androidlab.criminalintent.activities.CrimeActivity;
 import xyz.javalab.androidlab.criminalintent.model.Crime;
 import xyz.javalab.androidlab.criminalintent.model.CrimeLab;
 
 public class CrimeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
+    private static final String TAG_DIALOG_DATE = "DatePickerDialog";
+
+    private static final int REQUEST_CODE_DATE = 0;
 
     private Crime crime;
 
@@ -49,7 +52,6 @@ public class CrimeFragment extends Fragment {
         crime = CrimeLab.getInstance(getActivity()).getCrime(crimeId);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crime, container, false);
@@ -75,11 +77,17 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-//        CharSequence formattedDate = DateFormat.format("EEEE, MMM d, yyyy.", crime.getDate());
-        String formattedDate = DateFormat.getLongDateFormat(getActivity()).format(crime.getDate());
         dateButton = (Button) view.findViewById(R.id.crime_date_button);
-        dateButton.setText(formattedDate);
-        dateButton.setEnabled(false);
+        dateButton.setText(formatDate(crime.getDate()));
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(crime.getDate());
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_CODE_DATE);
+                dialog.show(manager, TAG_DIALOG_DATE);
+            }
+        });
 
         solvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved_check_box);
         solvedCheckBox.setChecked(crime.isSolved());
@@ -89,6 +97,20 @@ public class CrimeFragment extends Fragment {
                 crime.setSolved(isChecked);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_DATE) {
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            crime.setDate(date);
+            dateButton.setText(formatDate(date));
+        }
+    }
+
+    private String formatDate(Date date) {
+//        CharSequence formattedDate = DateFormat.format("EEEE, MMM d, yyyy.", date);
+        return DateFormat.getLongDateFormat(getActivity()).format(date);
     }
 
 }
