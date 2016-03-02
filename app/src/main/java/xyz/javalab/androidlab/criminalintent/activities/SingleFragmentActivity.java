@@ -2,13 +2,12 @@ package xyz.javalab.androidlab.criminalintent.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 
 import xyz.javalab.androidlab.R;
-import xyz.javalab.androidlab.criminalintent.fragments.CrimeFragment;
 
-public abstract class SingleFragmentActivity extends FragmentActivity {
+public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     public abstract Fragment createFragment();
 
@@ -20,7 +19,6 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
-            fragment = createFragment();
             fragmentManager.beginTransaction()
                     .add(R.id.fragment_container, createFragment())
                     .commit();
